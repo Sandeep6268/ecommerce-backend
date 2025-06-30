@@ -55,15 +55,20 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # React's default port
     "http://127.0.0.1:5173",
     "https://sandeep6268.github.io"
-    
+
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://ecommerce-backend-da9u.onrender.com",
     "https://sandeep6268.github.io",
+    "https://ecommerce-backend-da9u.onrender.com",
 ]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://sandeep6268\.github\.io$",
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 # Session will expire after 1 hour (3600 seconds)
 SESSION_COOKIE_AGE = 60 * 60  # 1 hour
