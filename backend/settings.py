@@ -51,10 +51,9 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = False  # Required for JavaScript to access CSRF token
 SESSION_COOKIE_HTTPONLY = True
 CORS_ALLOWED_ORIGINS = [
+    "https://sandeep6268.github.io"
     "http://localhost:3000",
     "http://localhost:5173",  # React's default port
-    "http://127.0.0.1:5173",
-    "https://sandeep6268.github.io"
 
 ]
 CSRF_TRUSTED_ORIGINS = [
