@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'users.User'
 
 # Password Reset Settings
-FRONTEND_URL = 'https://sandeep6268.github.io/ecommerce-frontend/'  # Your React app's URL
+FRONTEND_URL = 'https://sandeep6268.github.io/ecommerce-frontend'  # Your React app's URL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider
 EMAIL_PORT = 587
