@@ -225,8 +225,11 @@ def register_view(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
+
+
 
 @api_view(['POST'])
 def login_view(request):
