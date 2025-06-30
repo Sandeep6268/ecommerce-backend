@@ -155,11 +155,12 @@ import os
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# This line ensures collectstatic doesn't ask for confirmation
+os.environ['DJANGO_COLLECTSTATIC'] = '1'
+
 if os.environ.get('RENDER'):
     DEBUG = False
     ALLOWED_HOSTS += ['ecommerce-backend-da9u.onrender.com']
-    os.environ['DJANGO_COLLECTSTATIC'] = '1'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
