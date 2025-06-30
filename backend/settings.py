@@ -53,11 +53,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",  # React's default port
     "http://127.0.0.1:5173",
+    "https://sandeep6268.github.io"
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+
 ]
 
 # Session will expire after 1 hour (3600 seconds)
@@ -122,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'users.User'
 
 # Password Reset Settings
-FRONTEND_URL = 'http://localhost:5173'  # Your React app's URL
+FRONTEND_URL = 'https://sandeep6268.github.io/ecommerce-frontend/'  # Your React app's URL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider
 EMAIL_PORT = 587
