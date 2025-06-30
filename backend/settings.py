@@ -150,9 +150,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 import os
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
+if os.environ.get('RENDER'):
+    DEBUG = False
+    ALLOWED_HOSTS += ['ecommerce-backend-da9u.onrender.com']
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+
+    # Skip confirmation for collectstatic
+    os.environ['DJANGO_COLLECTSTATIC'] = '1'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
