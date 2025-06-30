@@ -85,6 +85,12 @@ CSRF_TRUSTED_ORIGINS = [
     "https://ecommerce-backend-da9u.onrender.com",
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',  # ✅ required for session login
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
 
 
 # Session will expire after 1 hour (3600 seconds)
