@@ -225,23 +225,21 @@ def register_view(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-@csrf_exempt
-def login_view(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get('email')
-            password = data.get('password')
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
 
-            user = authenticate(request, username=username, password=password)
-            
-            if user is not None:
-                login(request, user)
-                return JsonResponse({'message': 'Login successful'}, status=200)
-            else:
-                return JsonResponse({'error': 'Invalid credentials'}, status=401)
-                
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-    
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+@api_view(['POST'])
+def login_view(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    user = authenticate(request, email=email, password=password)
+
+    if user is not None:
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })
+    else:
+        return Response({'error': 'Invalid credentials'}, status=400)
