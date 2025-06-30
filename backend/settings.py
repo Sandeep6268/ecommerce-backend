@@ -52,7 +52,6 @@ CSRF_COOKIE_HTTPONLY = False  # Required for JavaScript to access CSRF token
 SESSION_COOKIE_HTTPONLY = True
 CORS_ALLOWED_ORIGINS = [
     "https://ecommerce-frontend-fv2p.onrender.com",
-    "https://sandeep6268.github.io"
     "http://localhost:3000",
     "http://localhost:5173",  # React's default port
 
@@ -64,12 +63,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://sandeep6268.github.io",
     "https://ecommerce-backend-da9u.onrender.com",
 ]
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://sandeep6268\.github\.io$",
-]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
