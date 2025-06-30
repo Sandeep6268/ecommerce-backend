@@ -45,11 +45,26 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_CREDENTIALS = True
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTPONLY = False  # Required for JavaScript to access CSRF token
+# CORS_ALLOW_CREDENTIALS = True
+# SESSION_COOKIE_SAMESITE = 'Lax'
+# CSRF_COOKIE_SAMESITE = 'Lax'
+# CSRF_COOKIE_HTTPONLY = False  # Required for JavaScript to access CSRF token
+# SESSION_COOKIE_HTTPONLY = True
+
+
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
 SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+
 CORS_ALLOWED_ORIGINS = [
     "https://ecommerce-frontend-fv2p.onrender.com",
     "http://localhost:3000",
@@ -58,6 +73,10 @@ CORS_ALLOWED_ORIGINS = [
 
 
 ]
+
+SESSION_COOKIE_DOMAIN = ".onrender.com"
+CSRF_COOKIE_DOMAIN = ".onrender.com"
+
 CSRF_TRUSTED_ORIGINS = [
     "https://ecommerce-frontend-fv2p.onrender.com",
     "http://localhost:3000",
@@ -67,7 +86,6 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 
-CORS_ALLOW_CREDENTIALS = True
 
 # Session will expire after 1 hour (3600 seconds)
 SESSION_COOKIE_AGE = 60 * 60  # 1 hour
