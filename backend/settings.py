@@ -1,25 +1,19 @@
-
-
 from pathlib import Path
+from datetime import timedelta
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bpx_3t9hx9zsdr@pyjom77p$69lk3hff_0g4wkz2$qo&&=hnlc'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  # For Render and localhost access
 
 
-# Application definition
-
+# -------------------
+# INSTALLED APPS
+# -------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,55 +21,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
-    'corsheaders',  # for handling CORS
+    'corsheaders',
+
     'products',
     'cart',
-    'users'
+    'users',
 ]
 
+# -------------------
+# MIDDLEWARE
+# -------------------
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',  # must be before CommonMiddleware
     'django.middleware.common.CommonMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# CORS_ALLOW_CREDENTIALS = True
-# SESSION_COOKIE_SAMESITE = 'Lax'
-# CSRF_COOKIE_SAMESITE = 'Lax'
-# CSRF_COOKIE_HTTPONLY = False  # Required for JavaScript to access CSRF token
-# SESSION_COOKIE_HTTPONLY = True
 
-
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
-
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = False
-
+# -------------------
+# CORS + CSRF
+# -------------------
 CORS_ALLOW_CREDENTIALS = True
-
-
 
 CORS_ALLOWED_ORIGINS = [
     "https://ecommerce-frontend-fv2p.onrender.com",
     "http://localhost:3000",
-    "http://localhost:5173",  # React's default port
-
-
-
+    "http://localhost:5173",
 ]
-
-SESSION_COOKIE_DOMAIN = ".onrender.com"
-CSRF_COOKIE_DOMAIN = ".onrender.com"
 
 CSRF_TRUSTED_ORIGINS = [
     "https://ecommerce-frontend-fv2p.onrender.com",
@@ -85,15 +66,29 @@ CSRF_TRUSTED_ORIGINS = [
     "https://ecommerce-backend-da9u.onrender.com",
 ]
 
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = False
+
+# Optional: If hosting frontend on subdomain
+SESSION_COOKIE_DOMAIN = ".onrender.com"
+CSRF_COOKIE_DOMAIN = ".onrender.com"
+
+# -------------------
+# REST FRAMEWORK & JWT
+# -------------------
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',  # ✅ required for session login
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
-
-from datetime import timedelta
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
@@ -103,15 +98,17 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
-# Session will expire after 1 hour (3600 seconds)
-SESSION_COOKIE_AGE = 60 * 60  # 1 hour
 
-# Optional: Keep session alive as long as the browser is open
+# -------------------
+# SESSION SETTINGS
+# -------------------
+SESSION_COOKIE_AGE = 3600  # 1 hour
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-# Optional: Save session on every request (refreshes expiry time)
 SESSION_SAVE_EVERY_REQUEST = True
 
+# -------------------
+# URL & WSGI
+# -------------------
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -131,10 +128,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# -------------------
+# DATABASE
+# -------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -146,64 +142,51 @@ DATABASES = {
     }
 }
 
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
+# -------------------
+# AUTH
+# -------------------
 AUTH_USER_MODEL = 'users.User'
 
-# Password Reset Settings
-FRONTEND_URL = 'https://sandeep6268.github.io/ecommerce-frontend'  # Your React app's URL
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
+
+# -------------------
+# EMAIL SETTINGS
+# -------------------
+FRONTEND_URL = 'https://sandeep6268.github.io/ecommerce-frontend'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sandybanna1137@gmail.com'  # Your email
-EMAIL_HOST_PASSWORD = 'yseu jyrs kutw ysuj'  # Your email password or app password
-DEFAULT_FROM_EMAIL = 'sandybanna1137@gmail.com'  # Your email
+EMAIL_HOST_USER = 'sandybanna1137@gmail.com'
+EMAIL_HOST_PASSWORD = 'yseu jyrs kutw ysuj'
+DEFAULT_FROM_EMAIL = 'sandybanna1137@gmail.com'
 
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# -------------------
+# INTERNATIONALIZATION
+# -------------------
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-import os
+# -------------------
+# STATIC & MEDIA
+# -------------------
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 if os.environ.get('RENDER'):
     DEBUG = False
     ALLOWED_HOSTS += ['ecommerce-backend-da9u.onrender.com']
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATIC_URL = '/static/'
-
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     import mimetypes
@@ -211,12 +194,7 @@ if os.environ.get('RENDER'):
 
     os.environ['DJANGO_COLLECTSTATIC'] = '1'
 
-
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# -------------------
+# AUTO FIELD
+# -------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
