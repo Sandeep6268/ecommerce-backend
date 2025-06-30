@@ -123,10 +123,18 @@ class LogoutView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+# def check_auth(request):
+#     return JsonResponse({
+#         'isAuthenticated': request.user.is_authenticated
+#     })
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET'])
 def check_auth(request):
-    return JsonResponse({
-        'isAuthenticated': request.user.is_authenticated
-    })
+    is_authenticated = request.user.is_authenticated
+    return Response({"isAuthenticated": is_authenticated})
+
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
