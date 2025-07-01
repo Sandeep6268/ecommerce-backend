@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'users',
+    'djoser',
 ]
 
 # -------------------
@@ -90,6 +91,8 @@ REST_FRAMEWORK = {
     ],
 }
 
+from datetime import timedelta
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
@@ -98,6 +101,17 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserCreateSerializer',  # Optional: use your custom serializer
+        'user': 'users.serializers.UserSerializer',
+        'current_user': 'users.serializers.UserSerializer',
+    },
+}
+
 
 # -------------------
 # SESSION SETTINGS

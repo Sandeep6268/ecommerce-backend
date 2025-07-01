@@ -19,5 +19,8 @@ urlpatterns = [
     path('', include('products.urls')),
     path('', include('cart.urls')),
     path('api/', include('users.urls')),
+     # Djoser endpoints for user management
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
