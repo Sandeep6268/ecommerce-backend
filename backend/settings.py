@@ -72,9 +72,9 @@ CSRF_TRUSTED_ORIGINS = [
 # CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_HTTPONLY = True
 
-# Optional: If hosting frontend on subdomain
-SESSION_COOKIE_DOMAIN = ".onrender.com"
-CSRF_COOKIE_DOMAIN = ".onrender.com"
+# # Optional: If hosting frontend on subdomain
+# SESSION_COOKIE_DOMAIN = ".onrender.com"
+# CSRF_COOKIE_DOMAIN = ".onrender.com"
 
 # -------------------
 # REST FRAMEWORK & JWT
