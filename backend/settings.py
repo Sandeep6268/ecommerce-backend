@@ -73,7 +73,7 @@ SESSION_COOKIE_HTTPONLY = True
 
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = True
 
 # Optional: If hosting frontend on subdomain
 SESSION_COOKIE_DOMAIN = ".onrender.com"
