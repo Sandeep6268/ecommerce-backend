@@ -54,7 +54,8 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "https://ecommerce-frontend-fv2p.onrender.com",
+    # "https://ecommerce-frontend-fv2p.onrender.com",
+    'https://ecommerce-frontend-rho-kohl.vercel.app',
     "http://localhost:3000",
     "http://localhost:5173",
 ]
